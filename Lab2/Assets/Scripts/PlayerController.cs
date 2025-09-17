@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     private float movementX;
     private float movementZ;
 
+    public float scaleMod = 1.0f;
+    public float massMod = 1.0f;
+
     public float speed = 0.0f;
 
     // Start is called before the first frame update
@@ -31,25 +34,35 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void EnemyEaten(Collision collision)
     {
         float scale = 1.0f;
-        float scaleMod = 1.5f;
-
         float mass = 0.0f;
-        float massMod = 0.1f;
 
-        if (collision.gameObject.tag == "Enemy")
-        { 
-            mass = collision.rigidbody.mass * massMod;
-            scale = collision.gameObject.transform.localScale.x * scaleMod;
+        mass = collision.rigidbody.mass * massMod;
+        scale = collision.gameObject.transform.localScale.x * scaleMod;
 
-            rb.mass += mass;
-            rb.gameObject.transform.localScale = rb.gameObject.transform.localScale * scale;
-            collision.gameObject.SetActive(false);
+        scale = Mathf.Clamp(scale, 1.1f, 100.0f);
 
-            Debug.Log(this.gameObject.transform.localScale);
-        }
+        rb.mass += mass;
+        rb.gameObject.transform.localScale = rb.gameObject.transform.localScale * scale;
+        collision.gameObject.SetActive(false);
+
+        Debug.Log(this.gameObject.transform.localScale);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (collision.transform.localScale.x <= transform.localScale.x)
+            {
+                EnemyEaten(collision);
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
+        }
+    }
 }
