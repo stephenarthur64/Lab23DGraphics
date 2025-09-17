@@ -31,7 +31,7 @@ public class EnemyMovement : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
-    void Kill()
+    public void Kill()
     {
         gameObject.SetActive(false);
     }
