@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         mass = collision.rigidbody.mass * massMod;
         scale = collision.gameObject.transform.localScale.x * scaleMod;
 
-        scale = Mathf.Clamp(scale, 1.1f, 100.0f);
+        scale = Mathf.Clamp(scale, 1.1f, 20.0f);
 
         rb.mass += mass;
         rb.gameObject.transform.localScale = rb.gameObject.transform.localScale * scale;
