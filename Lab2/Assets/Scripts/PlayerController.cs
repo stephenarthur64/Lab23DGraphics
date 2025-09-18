@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    public TextMeshProUGUI scoreRef;
+
     private Rigidbody rb;
     private float movementX;
     private float movementZ;
@@ -14,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public float massMod = 1.0f;
     public float scaleModNegative;
     public float scaleMin = 0.2f;
+
+    private float score = 0.0f;
 
     public float speed = 0.0f;
 
@@ -52,6 +58,9 @@ public class PlayerController : MonoBehaviour
         scale = collision.gameObject.transform.localScale.x * scaleMod;
 
         scale = Mathf.Clamp(scale, 1.1f, 20.0f);
+
+        score += collision.gameObject.transform.localScale.x * 10;
+        scoreRef.text = "Score: " + score.ToString();
 
         rb.mass += mass;
         rb.gameObject.transform.localScale = rb.gameObject.transform.localScale * scale;
