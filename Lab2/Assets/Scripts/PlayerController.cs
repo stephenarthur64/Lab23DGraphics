@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     public float scaleMod = 1.0f;
     public float massMod = 1.0f;
-    public float scaleModNegative = 0.7f;
+    public float scaleModNegative;
     public float scaleMin = 0.2f;
 
     public float speed = 0.0f;
