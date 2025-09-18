@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     public float scaleMod = 1.0f;
     public float massMod = 1.0f;
+    public float scaleModNegative = 0.7f;
+    public float scaleMin = 0.2f;
 
     public float speed = 0.0f;
 
@@ -25,6 +28,8 @@ public class PlayerController : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementZ = movementVector.y;
+        rb.gameObject.transform.localScale -= new Vector3(scaleModNegative, scaleModNegative, scaleModNegative);
+        Debug.Log(rb.gameObject.transform.localScale);
     }
 
     // Update is called once per frame
@@ -32,6 +37,10 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementZ);
         rb.AddForce(movement * speed);
+        if (rb.gameObject.transform.localScale.x <= scaleMin)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     void EnemyEaten(Collision collision)
@@ -46,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
         rb.mass += mass;
         rb.gameObject.transform.localScale = rb.gameObject.transform.localScale * scale;
+        speed *= scale;
         collision.gameObject.SetActive(false);
 
         Debug.Log(this.gameObject.transform.localScale);
