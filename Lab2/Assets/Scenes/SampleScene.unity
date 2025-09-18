@@ -832,7 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleMod: 1.5
   massMod: 0.1
-  scaleModNegative: 0.7
+  scaleModNegative: 0.05
   scaleMin: 0.2
   speed: 10
 --- !u!114 &922814467
