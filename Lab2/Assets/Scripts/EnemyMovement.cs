@@ -6,7 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody rb;
     private Vector2 movementDir;
-    public int speed = 0;
+    public float speed = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,8 @@ public class EnemyMovement : MonoBehaviour
 
         movementDir = new Vector2(randX, randY);
         Vector3 movement = new Vector3(movementDir.x, 0.0f, movementDir.y);
-        rb.AddForce(movement * speed);
+        rb.velocity = movement * (speed * scale);
+        // rb.AddForce(movement * speed);
     }
 
     void FixedUpdate()
@@ -30,7 +31,9 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionExit(Collision collision)
     {
+        // Vector3 movement = new Vector3(movementDir.x, 0.0f, movementDir.y);
+        // rb.AddForce(rb.velocity * speed);
     }
 }
