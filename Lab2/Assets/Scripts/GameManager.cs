@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public TextMeshProUGUI winLoseText;
+
     public GameObject playerRef;
     public GameObject enemyRef;
     [SerializeField]
@@ -34,6 +37,8 @@ public class GameManager : MonoBehaviour
         if (!playerRef.activeSelf)
         {
             Debug.Log("Game Over");
+            winLoseText.gameObject.SetActive(true);
+            winLoseText.text = "You lose!!";
         }
 
         foreach (GameObject enemy in enemyArray)
@@ -47,6 +52,8 @@ public class GameManager : MonoBehaviour
         if (activeEnemies == maxEnemies)
         {
             Debug.Log("Game Win! :D");
+            winLoseText.gameObject.SetActive(true);
+            winLoseText.text = "You win!!";
         }
         activeEnemies = 0;
 
