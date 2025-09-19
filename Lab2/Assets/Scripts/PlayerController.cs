@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementZ = movementVector.y;
         rb.gameObject.transform.localScale -= new Vector3(scaleModNegative, scaleModNegative, scaleModNegative);
+        Mathf.Clamp(rb.gameObject.transform.localScale.x, 0.5f, 10.0f);
+        Mathf.Clamp(rb.gameObject.transform.localScale.y, 0.5f, 10.0f);
+        Mathf.Clamp(rb.gameObject.transform.localScale.y, 0.5f, 10.0f);
+
         Debug.Log(rb.gameObject.transform.localScale);
     }
 
@@ -55,16 +59,13 @@ public class PlayerController : MonoBehaviour
         float mass = 0.0f;
 
         mass = collision.rigidbody.mass * massMod;
-        scale = collision.gameObject.transform.localScale.x * scaleMod;
-
-        scale = Mathf.Clamp(scale, 1.1f, 20.0f);
+        scale = collision.gameObject.transform.localScale.x / scaleMod;
 
         score += collision.gameObject.transform.localScale.x * 10;
         scoreRef.text = "Score: " + score.ToString();
 
         rb.mass += mass;
-        rb.gameObject.transform.localScale = rb.gameObject.transform.localScale * scale;
-        speed *= scale;
+        rb.gameObject.transform.localScale = rb.gameObject.transform.localScale + new Vector3(scale, scale, scale);
         collision.gameObject.SetActive(false);
 
         Debug.Log(this.gameObject.transform.localScale);
