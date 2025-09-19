@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601dfcede9f535946ba521cd95dbe8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAmount: 10000
+  enemyAmount: 15
   enemyPrefab: {fileID: 6304221382743667409, guid: 72af81a7366d2484caddcd48e72d7e57, type: 3}
   spawnPositions:
   - {fileID: 1383787657}
