@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
         SpawnAllEnemies();
     }
 
-    void SpawnAllEnemies()
+    public void SpawnAllEnemies()
     {
         for (int i = 0; i < enemyAmount; i++)
         {

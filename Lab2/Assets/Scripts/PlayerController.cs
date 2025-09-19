@@ -53,6 +53,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Respawn()
+    {
+        transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        gameObject.SetActive(true);
+    }
+
     void EnemyEaten(Collision collision)
     {
         float scale = 1.0f;

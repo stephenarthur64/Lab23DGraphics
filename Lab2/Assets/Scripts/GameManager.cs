@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -7,12 +8,16 @@ public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI winLoseText;
 
+    public PlayerController playerScript;
     public GameObject playerRef;
     public GameObject enemyRef;
     [SerializeField]
     private List<GameObject> enemyArray = new List<GameObject>();
-    private int activeEnemies;
-    const int maxEnemies = 15;
+    private int deadEnemies;
+
+    bool coroutineRunning = false;
+
+    public EnemyManager enemyManager;
 
     // Start is called before the first frame update
     void Start()
@@ -31,31 +36,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator GameOver()
+    {
+        coroutineRunning = true;
+        Debug.Log("Game Over");
+        winLoseText.gameObject.SetActive(true);
+        winLoseText.text = "You lose!!";
+        yield return new WaitForSeconds(1.5f);
+        playerScript.Respawn();
+        //enemyManager.SpawnAllEnemies();
+        winLoseText.gameObject.SetActive(false);
+        coroutineRunning = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (!playerRef.activeSelf)
+        if (!playerRef.activeSelf && !coroutineRunning)
         {
-            Debug.Log("Game Over");
-            winLoseText.gameObject.SetActive(true);
-            winLoseText.text = "You lose!!";
+            StartCoroutine(GameOver());
         }
 
-        foreach (GameObject enemy in enemyArray)
-        {
-            if (!enemy.activeSelf)
+            foreach (GameObject enemy in enemyArray)
             {
-                activeEnemies++;
+                if (!enemy.activeSelf)
+                {
+                    deadEnemies++;
+                }
             }
-        }
 
-        if (activeEnemies == maxEnemies)
+        if (deadEnemies == enemyManager.enemyAmount)
         {
+            StartCoroutine(GameOver());
+
             Debug.Log("Game Win! :D");
             winLoseText.gameObject.SetActive(true);
             winLoseText.text = "You win!!";
         }
-        activeEnemies = 0;
+        deadEnemies = 0;
 
     }
 }
