@@ -28,15 +28,18 @@ public class EnemyMovement : MonoBehaviour
         {
             case 0:
                 scale = 0.5f;
+                speed *= scale;
                 break;
             case 1:
                 scale = 1.0f;
                 break;
             case 2:
                 scale = 1.5f;
+                speed *= scale;
                 break;
             case 3:
                 scale = 2.0f;
+                speed *= scale;
                 break;
 
         }
@@ -45,11 +48,8 @@ public class EnemyMovement : MonoBehaviour
         mesh.material.color = scaleColors[scale];
 
         movementDir = Random.insideUnitCircle.normalized;
-        Debug.Log("Dir: " + movementDir.x + ", " + movementDir.y);
 
         Vector3 movement = new Vector3(movementDir.x * speed, 0.0f, movementDir.y * speed);
         rb.velocity = movement;
-        // Debug.Log("Velocity Mag: " + rb.velocity.magnitude);
-        //Debug.Log("Velocity: " + rb.velocity.x + ", " + rb.velocity.y + ", " + rb.velocity.z);
     }
 }
