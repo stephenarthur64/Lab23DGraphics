@@ -19,7 +19,8 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < enemyAmount; i++)
         {
             int randomPos = Random.Range(0, spawnPositions.Count);
-            Instantiate(enemyPrefab, spawnPositions[randomPos].transform.position, Quaternion.identity);
+            Instantiate(enemyPrefab, spawnPositions[randomPos].transform.position, Quaternion.identity, this.transform);
+            
         }
     }
 }
