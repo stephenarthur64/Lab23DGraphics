@@ -56,6 +56,9 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        movementX = 0.0f;
+        movementZ = 0.0f;
+        rb.velocity = new Vector3(0, 0, 0);
         gameObject.SetActive(true);
     }
 
