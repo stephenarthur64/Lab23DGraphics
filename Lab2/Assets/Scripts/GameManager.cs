@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FindEnemies();
+    }
+
+    void FindEnemies()
+    {
+        enemyArray.Clear();
+
         for (int i = 0; i < enemyRef.transform.childCount; i++)
         {
             if (enemyRef.transform.GetChild(i).tag == "Enemy")
@@ -39,7 +46,8 @@ public class GameManager : MonoBehaviour
         winLoseText.text = "You lose!!";
         yield return new WaitForSeconds(1.5f);
         playerScript.Respawn();
-        //enemyManager.SpawnAllEnemies();
+        enemyManager.SpawnAllEnemies();
+        FindEnemies();
         winLoseText.gameObject.SetActive(false);
         coroutineRunning = false;
     }
@@ -60,7 +68,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-        if (deadEnemies == enemyManager.enemyAmount)
+        if (deadEnemies == enemyManager.enemyAmount && !coroutineRunning)
         {
             StartCoroutine(GameOver());
 
