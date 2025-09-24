@@ -22,11 +22,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //for (int i = 0; i < maxEnemies; i++)
-        //{
-        //    enemyArray[i] = enemyRef.transform.GetChild(i).gameObject;
-        //}
-
         for (int i = 0; i < enemyRef.transform.childCount; i++)
         {
             if (enemyRef.transform.GetChild(i).tag == "Enemy")
