@@ -8,6 +8,8 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector2 movementDir;
     public float speed = 0;
+    public PlayerController player;
+    MeshRenderer mesh;
 
     private static Dictionary<float, Color> scaleColors = new Dictionary<float, Color>
     {
@@ -44,12 +46,23 @@ public class EnemyMovement : MonoBehaviour
 
         }
         rb.gameObject.transform.localScale = new Vector3( scale, scale, scale );
-        MeshRenderer mesh = GetComponent<MeshRenderer>();
+        mesh = GetComponent<MeshRenderer>();
         mesh.material.color = scaleColors[scale];
 
         movementDir = Random.insideUnitCircle.normalized;
 
         Vector3 movement = new Vector3(movementDir.x * speed, 0.0f, movementDir.y * speed);
         rb.velocity = movement;
+
+        player = GetComponent<PlayerController>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (player.transform.localScale.x > transform.localScale.x)
+        {
+            mesh.material.EnableKeyword("_EMISSION");
+            mesh.material.SetColor("_EmissionColor", Color.green * 1000);
+        }
     }
 }
