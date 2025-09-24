@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,8 +28,6 @@ public class GameManager : MonoBehaviour
 
     void FindEnemies()
     {
-        enemyArray.Clear();
-
         for (int i = 0; i < enemyRef.transform.childCount; i++)
         {
             if (enemyRef.transform.GetChild(i).tag == "Enemy")
@@ -45,11 +44,8 @@ public class GameManager : MonoBehaviour
         winLoseText.gameObject.SetActive(true);
         winLoseText.text = "You lose!!";
         yield return new WaitForSeconds(1.5f);
-        playerScript.Respawn();
-        enemyManager.SpawnAllEnemies();
-        FindEnemies();
-        winLoseText.gameObject.SetActive(false);
-        coroutineRunning = false;
+        Scene currentScene = SceneManager.GetActiveScene(); // Get the current scene
+        SceneManager.LoadScene(currentScene.name); // Reload the scene by its name
     }
 
     // Update is called once per frame

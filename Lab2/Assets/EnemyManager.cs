@@ -20,7 +20,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemy.CompareTag("Enemy"))
             {
-                DestroyImmediate(enemy.gameObject);
+                Destroy(enemy.gameObject);
             }
         }
 
